@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Regression Model Calculator</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  <script src="script.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="icon" href="Assets/favicon.ico">
+  <script type="text/javascript" charset="utf-8" src="teavm/classes.js"></script>
+</head>
+<body onload="main()">
+
+  <h1>Regression Model Calculator</h1>
+
+  <div class="predictionPoint">
+    <h2>Prediction Point</h2>
+    <input type="number" id="PredictionPoint" placeholder="Enter Prediction Point">
+  </div>
+
+  <form id="regression_selector">
+    <h2>Regression Model Selection</h2>
+
+    <div id="simpleLinearRegressionDiv" class="inputDiv">
+      <div class="checkbox-label">
+        <input type="checkbox" id="simpleLinearRegression">
+        <label for="simpleLinearRegression">Linear Regression</label>
+      </div>
+      <div class="hidden visible"></div>
+    </div>
+
+    <div id="constRegressionDiv" class="inputDiv">
+      <div class="checkbox-label">
+        <input type="checkbox" id="constRegression">
+        <label for="constRegression">Constant Regression</label>
+      </div>
+      <div class="hidden visible"></div>
+    </div>
+
+    <div id="polynomialRegressionDiv" class="inputDiv">
+      <div class="checkbox-label">
+        <input type="checkbox" id="polynomialRegression">
+        <label for="polynomialRegression">Polynomial Regression</label>
+      </div>
+      <div class="hidden visible">
+        <div>
+          <input type="number" id="polynomialRegressionDegree" class="floatInput" placeholder="Enter Polynomial Degree">
+        </div>
+      </div>
+    </div>
+
+    <div id="autoRegressionDiv" class="inputDiv">
+      <div class="checkbox-label">
+        <input type="checkbox" id="autoRegression">
+        <label for="autoRegression">Auto Regression</label>
+      </div>
+      <div class="hidden visible">
+        <div>
+          <input type="number" id="autoRegressionDegree" class="floatInput"  placeholder="Enter Auto Regression Degree">
+        </div>
+      </div>
+    </div>
+
+    <div id="autoRegressionMovingAverageDiv" class="inputDiv">
+      <div class="checkbox-label">
+        <input type="checkbox" id="autoRegressionMovingAverage">
+        <label for="autoRegressionMovingAverage">Auto Regressive Moving Average</label>
+      </div>
+      <div class="hidden visible">
+        <div>
+          <input type="number" id="autoRegressionMovingAverageDegree" class="floatInput"  placeholder="Enter Auto Regression Degree">
+        </div>
+        <div>
+          <input type="number" id="autoRegressionMovingAverageMovingAverage" class="floatInput"  placeholder="Enter Moving Average">
+        </div>
+      </div>
+    </div>
+
+    <div id="autoRegressionIntegratedAverageDiv" class="inputDiv">
+      <div class="checkbox-label">
+        <input type="checkbox" id="autoRegressionIntegratedAverage">
+        <label for="autoRegressionIntegratedAverage">Auto Regressive Integrated Moving Average</label>
+      </div>
+      <div class="hidden visible">
+        <div>
+          <input type="number" id="autoRegressionIntegratedAverageDegree" class="floatInput"  placeholder="Enter Auto Regression Degree">
+        </div>
+        <div>
+          <input type="number" id="autoRegressionIntegratedAverageMovingAverage" class="floatInput"  placeholder="Enter Moving Average Degree">
+        </div>
+        <div>
+          <input type="number" id="autoRegressionIntegratedAverageDifferencing" class="floatInput"  placeholder="Enter Degree of Differencing">
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div id="buttonContainer">
+    <input type="file" id="uploadButton" onchange="handleFileSelect(event)">
+    <button id="startButton">Start</button>
+  </div>
+
+  <div id="csvInput">
+    <label for="fileContent"></label>
+    <textarea id="fileContent" rows="10" cols="20"></textarea>
+  </div>
+
+  <div class="canvas-container" id="simpleLinearRegressionCanvasDiv">
+    <canvas id="simpleLinearRegressionCanvas" height="500"></canvas>
+  </div>
+  <div class="canvas-container" id="constRegressionCanvasDiv">
+    <canvas id="constRegressionCanvas" height="500"></canvas>
+  </div>
+  <div class="canvas-container" id="polynomialRegressionCanvasDiv">
+    <canvas id="polynomialRegressionCanvas" height="500"></canvas>
+  </div>
+  <div class="canvas-container" id="autoRegressionCanvasDiv">
+    <canvas id="autoRegressionCanvas" height="500"></canvas>
+  </div>
+  <div class="canvas-container" id="autoRegressionMovingAverageCanvasDiv">
+    <canvas id="autoRegressionMovingAverageCanvas" height="500"></canvas>
+  </div>
+  <div class="canvas-container" id="autoRegressionIntegratedAverageCanvasDiv">
+    <canvas id="autoRegressionIntegratedAverageCanvas" height="500"></canvas>
+  </div>
+</body>
+</html>
