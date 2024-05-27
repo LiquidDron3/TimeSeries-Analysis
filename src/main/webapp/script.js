@@ -19,24 +19,21 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
+    const startButton = document.getElementById('startButton');
     const inputDivs = document.querySelectorAll('.inputDiv');
 
-    inputDivs.forEach(function(div) {
-        const checkbox = div.querySelector('input[type="checkbox"]');
-        const canvasId = checkbox.id + "CanvasDiv";
-        const canvasDiv = document.querySelector('#' + canvasId);
+    startButton.addEventListener('click', function() {
+        inputDivs.forEach(function(div) {
+            const checkbox = div.querySelector('input[type="checkbox"]');
+            const canvasId = checkbox.id + "CanvasDiv";
+            const canvasDiv = document.querySelector('#' + canvasId);
 
-        checkbox.addEventListener('change', function() {
-            if (this.checked) {
+            if (checkbox.checked) {
                 canvasDiv.style.display = "block";
             } else {
                 canvasDiv.style.display = "none";
             }
         });
-
-        if (!checkbox.checked) {
-            canvasDiv.style.display = "none";
-        }
     });
 });
 

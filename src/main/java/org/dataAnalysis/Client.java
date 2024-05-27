@@ -8,9 +8,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.dataAnalysis.Messages.*;
-
-public final class Client {
+ public final class Client {
 
     private static int predictionPoint;
     public static void main(String[] args) {
@@ -76,6 +74,8 @@ public final class Client {
         HTMLFormElement form = document.getElementById("regression_selector").cast();
         HTMLInputElement userContent = document.getElementById("fileContent").cast();
 
+
+
         String[] selectedRegressions = getSelectedRegressions(form);
         double[] inputData = Arrays.stream(convertLinesTo2dArray(userContent.getValue()))
                 .mapToDouble(arr -> Double.parseDouble(arr[1].replace(',', '.')))
@@ -83,6 +83,7 @@ public final class Client {
 
 
         for (String regression : selectedRegressions) {
+            DrawChart drawChart = new DrawChartImp();
             Model reg = createAndInitRegression(document, regression, inputData);
             int dataSetLength = predictionPoint + inputData.length;
             if (isInstanceOfAutoRegressionFamily(reg)) {
@@ -90,7 +91,8 @@ public final class Client {
             }
             double[] calculatedData = calculateRegressionDataSet(reg, dataSetLength);
             HTMLCanvasElement canvas = getCanvasForRegression(document, regression);
-            //drawGraph(canvas, calculatedData, inputData); TODO: implement it
+            drawChart.drawGraphWithCalculation(canvas, calculatedData, inputData);
+            drawChart.addResizeEventListener(canvas, calculatedData, inputData);
         }
 
     }
@@ -99,7 +101,7 @@ public final class Client {
         try {
             return (HTMLCanvasElement) document.getElementById(regressionType + "Canvas");
         } catch (ClassCastException e) {
-            throw new IllegalArgumentException(ERROR_UNKNOWN_REGRESSION);
+            throw new IllegalArgumentException(Messages.ERROR_UNKNOWN_REGRESSION);
         }
     }
 
@@ -134,7 +136,7 @@ public final class Client {
                 regressionARIMA.init(inputDataSet);
                 return regressionARIMA;
             default:
-                throw new IllegalArgumentException(ERROR_UNKNOWN_REGRESSION);
+                throw new IllegalArgumentException(Messages.ERROR_UNKNOWN_REGRESSION);
         }
     }
 
@@ -158,13 +160,13 @@ public final class Client {
             case "polynomialRegression":
                 return Collections.singletonList("Degree");
             case "autoRegression":
-                return Collections.singletonList("Degree");
+                return Collections.singletonList("PValue");
             case "autoRegressionMovingAverage":
-                return Arrays.asList("Degree", "MovingAverage");
+                return Arrays.asList("PValue", "MA");
             case "autoRegressionIntegratedAverage":
-                return Arrays.asList("Degree", "MovingAverage", "Differencing");
+                return Arrays.asList("PValue", "DifferencingOrder", "MA");
             default:
-                throw new IllegalArgumentException(ERROR_UNKNOWN_REGRESSION);
+                throw new IllegalArgumentException(Messages.ERROR_UNKNOWN_REGRESSION);
         }
     }
 
@@ -183,7 +185,7 @@ public final class Client {
         if(isInstanceOfSupportedRegressions(regression)) {
             if (isInstanceOfAutoRegressionFamily(regression)) {
 
-                for (int i = 0; i <= dataSetLength; i++) {
+                for (int i = 1; i <= dataSetLength; i++) {
                     calculatedData[i] = regression.eval(i);
                 }
             } else {
@@ -196,7 +198,7 @@ public final class Client {
 
             return calculatedData;
         } else {
-            throw new IllegalArgumentException(ERROR_UNKNOWN_REGRESSION);
+            throw new IllegalArgumentException(Messages.ERROR_UNKNOWN_REGRESSION);
         }
     }
 
