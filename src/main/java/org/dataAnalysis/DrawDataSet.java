@@ -6,7 +6,7 @@ import org.teavm.jso.dom.html.HTMLCanvasElement;
 
 import java.util.Arrays;
 
-public class DrawChartImp implements DrawChart {
+public class DrawDataSet {
 
     private double getMinOfDataset(double[] data) {
         if(data.length == 0) {
@@ -42,14 +42,11 @@ public class DrawChartImp implements DrawChart {
         canvas.setWidth((int) (currentWindowWidth * 0.6));
     }
 
-    @Override
     public void addResizeEventListener(HTMLCanvasElement canvas, double[] data1, double[] data2) {
-        Window.current().addEventListener("resize", event -> {
-            drawGraphWithCalculation(canvas, data1, data2);
-        });
+        Window.current().addEventListener("resize", event ->
+                drawGraphWithCalculation(canvas, data1, data2));
     }
 
-    @Override
     public void drawGraphWithCalculation(HTMLCanvasElement canvas, double[] data1, double[] data2) {
         CanvasRenderingContext2D context = canvas.getContext("2d").cast();
 
