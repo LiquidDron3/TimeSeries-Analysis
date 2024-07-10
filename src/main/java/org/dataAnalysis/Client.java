@@ -51,6 +51,7 @@ public final class Client {
                     predictionPoint);
             double[][] preparedDataSet = dataPreparationHandler.prepareDataSet(rawInputData, calculatedData, predictionPoint);
             drawDataSethandler.prepareAndDrawDataSetOnCanvas(canvas, preparedDataSet);
-        }
+}
+        htmlHandler.scrollToCanvasContainerWithTopOffset();
     }
 }

@@ -1,5 +1,6 @@
 package org.dataAnalysis;
 
+import org.teavm.jso.browser.Window;
 import org.teavm.jso.dom.html.*;
 
 public class HtmlHandler {
@@ -22,6 +23,14 @@ public class HtmlHandler {
 
     public HTMLInputElement getRegressionParameterElement(String selectedRegression, String parameterName) {
         return doc.getElementById(selectedRegression + parameterName).cast();
+    }
+
+    public void scrollToCanvasContainerWithTopOffset() {
+        int topOffset = 50;
+        HTMLElement canvasContainer = doc.getElementById("canvasContainer");
+        int top = canvasContainer.getOffsetTop();
+        int left = canvasContainer.getOffsetLeft();
+        Window.current().scrollTo(left, top - topOffset);
     }
 
     public HTMLInputElement getInputDataElement() {

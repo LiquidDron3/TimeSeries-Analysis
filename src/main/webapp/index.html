@@ -27,7 +27,6 @@
       </div>
       <div class="hidden visible"></div>
     </div>
-
     <div id="constRegressionDiv" class="inputDiv">
       <div class="checkbox-label">
         <input type="checkbox" id="constRegression">
@@ -35,7 +34,6 @@
       </div>
       <div class="hidden visible"></div>
     </div>
-
     <div id="polynomialRegressionDiv" class="inputDiv">
       <div class="checkbox-label">
         <input type="checkbox" id="polynomialRegression">
@@ -47,7 +45,6 @@
         </div>
       </div>
     </div>
-
     <div id="autoRegressionDiv" class="inputDiv">
       <div class="checkbox-label">
         <input type="checkbox" id="autoRegression">
@@ -59,7 +56,6 @@
         </div>
       </div>
     </div>
-
     <div id="autoRegressionMovingAverageDiv" class="inputDiv">
       <div class="checkbox-label">
         <input type="checkbox" id="autoRegressionMovingAverage">
@@ -74,7 +70,6 @@
         </div>
       </div>
     </div>
-
     <div id="autoRegressionIntegratedAverageDiv" class="inputDiv">
       <div class="checkbox-label">
         <input type="checkbox" id="autoRegressionIntegratedAverage">
@@ -104,31 +99,32 @@
     <textarea id="fileContent" rows="10" cols="20"></textarea>
   </div>
 
-
-  <figure class="canvas-container" id="simpleLinearRegressionCanvasDiv">
-    <h2>Simple Linear Regression</h2>
-    <canvas id="simpleLinearRegressionCanvas"></canvas>
-  </figure>
-  <figure class="canvas-container" id="constRegressionCanvasDiv">
-    <h2>Constant Regression</h2>
-    <canvas id="constRegressionCanvas"></canvas>
-  </figure>
-  <figure class="canvas-container" id="polynomialRegressionCanvasDiv">
-    <h2>Polynomial Regression</h2>
-    <canvas id="polynomialRegressionCanvas"></canvas>
-  </figure>
-  <figure class="canvas-container" id="autoRegressionCanvasDiv">
-    <h2>Auto Regression</h2>
-    <canvas id="autoRegressionCanvas"></canvas>
-  </figure>
-  <figure class="canvas-container" id="autoRegressionMovingAverageCanvasDiv">
-    <h2>Auto Regression Moving Average</h2>
-    <canvas id="autoRegressionMovingAverageCanvas"></canvas>
-  </figure>
-  <figure class="canvas-container" id="autoRegressionIntegratedAverageCanvasDiv">
-    <h2>Auto Regression Integrated Moving Average</h2>
-    <canvas id="autoRegressionIntegratedAverageCanvas"></canvas>
-  </figure>
+  <div id="canvasContainer">
+    <figure class="figure-container" id="simpleLinearRegressionCanvasDiv">
+      <h2>Simple Linear Regression</h2>
+      <canvas id="simpleLinearRegressionCanvas"></canvas>
+    </figure>
+    <figure class="figure-container" id="constRegressionCanvasDiv">
+      <h2>Constant Regression</h2>
+      <canvas id="constRegressionCanvas"></canvas>
+    </figure>
+    <figure class="figure-container" id="polynomialRegressionCanvasDiv">
+      <h2>Polynomial Regression</h2>
+      <canvas id="polynomialRegressionCanvas"></canvas>
+    </figure>
+    <figure class="figure-container" id="autoRegressionCanvasDiv">
+      <h2>Auto Regression</h2>
+      <canvas id="autoRegressionCanvas"></canvas>
+    </figure>
+    <figure class="figure-container" id="autoRegressionMovingAverageCanvasDiv">
+      <h2>Auto Regression Moving Average</h2>
+      <canvas id="autoRegressionMovingAverageCanvas"></canvas>
+    </figure>
+    <figure class="figure-container" id="autoRegressionIntegratedAverageCanvasDiv">
+      <h2>Auto Regression Integrated Moving Average</h2>
+      <canvas id="autoRegressionIntegratedAverageCanvas"></canvas>
+    </figure>
+  </div>
 
 </body>
 </html>
