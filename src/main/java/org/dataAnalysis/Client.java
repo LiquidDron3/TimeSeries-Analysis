@@ -51,7 +51,9 @@ public final class Client {
                     predictionPoint);
             double[][] preparedDataSet = dataPreparationHandler.prepareDataSet(rawInputData, calculatedData, predictionPoint);
             drawDataSethandler.prepareAndDrawDataSetOnCanvas(canvas, preparedDataSet);
-}
+            double roundedOutputValue = Math.round(calculatedData[predictionPoint-1] * 1000.0) / 1000.0;
+            htmlHandler.setEvaluationOutputElement(regression, roundedOutputValue);
+        }
         htmlHandler.scrollToCanvasContainerWithTopOffset();
     }
 }

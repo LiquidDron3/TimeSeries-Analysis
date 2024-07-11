@@ -14,37 +14,49 @@ public class RegressionHandler {
     }
 
     public Model createAndInitRegression(String selectedRegression, double[] inputDataSet) {
+        double regression;
         switch (selectedRegression) {
-            case "simpleLinearRegression":
+            case "simpleLinearRegression" -> {
                 SimpleLinearRegression simpleLinearRegression = new SimpleLinearRegression();
-                simpleLinearRegression.init(inputDataSet);
+                regression = simpleLinearRegression.init(inputDataSet);
+                htmlHandler.setCoefficientOutputElement(selectedRegression, regression);
                 return simpleLinearRegression;
-            case "constRegression":
+            }
+            case "constRegression" -> {
                 ConstantRegression constantRegression = new ConstantRegression();
-                constantRegression.init(inputDataSet);
+                regression = constantRegression.init(inputDataSet);
+                htmlHandler.setCoefficientOutputElement(selectedRegression, regression);
                 return constantRegression;
-            case "polynomialRegression":
+            }
+            case "polynomialRegression" -> {
                 int[] argsPolynomial = getRegressionParameters(selectedRegression);
                 PolynomialRegression polynomialRegression = new PolynomialRegression(argsPolynomial[0]);
-                polynomialRegression.init(inputDataSet);
+                regression = polynomialRegression.init(inputDataSet);
+                htmlHandler.setCoefficientOutputElement(selectedRegression, regression);
                 return polynomialRegression;
-            case "autoRegression":
+            }
+            case "autoRegression" -> {
                 int[] argsAuto = getRegressionParameters(selectedRegression);
                 AutoRegression regressionAR = new AutoRegression(argsAuto[0]);
-                regressionAR.init(inputDataSet);
+                regression = regressionAR.init(inputDataSet);
+                htmlHandler.setCoefficientOutputElement(selectedRegression, regression);
                 return regressionAR;
-            case "autoRegressionMovingAverage":
+            }
+            case "autoRegressionMovingAverage" -> {
                 int[] argsARMA = getRegressionParameters(selectedRegression);
                 AutoRegressiveMovingAverage regressionARMA = new AutoRegressiveMovingAverage(argsARMA[0], argsARMA[1]);
-                regressionARMA.init(inputDataSet);
+                regression = regressionARMA.init(inputDataSet);
+                htmlHandler.setCoefficientOutputElement(selectedRegression, regression);
                 return regressionARMA;
-            case "autoRegressionIntegratedAverage":
+            }
+            case "autoRegressionIntegratedAverage" -> {
                 int[] argsARIMA = getRegressionParameters(selectedRegression);
                 AutoRegressiveIntegratedMovingAverage regressionARIMA = new AutoRegressiveIntegratedMovingAverage(argsARIMA[0], argsARIMA[1], argsARIMA[2]);
-                regressionARIMA.init(inputDataSet);
+                regression = regressionARIMA.init(inputDataSet);
+                htmlHandler.setCoefficientOutputElement(selectedRegression, regression);
                 return regressionARIMA;
-            default:
-                throw new IllegalArgumentException(Messages.ERROR_UNKNOWN_REGRESSION);
+            }
+            default -> throw new IllegalArgumentException(Messages.ERROR_UNKNOWN_REGRESSION);
         }
     }
 

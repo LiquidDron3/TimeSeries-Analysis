@@ -1,6 +1,11 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #9EB8D9;
+    min-width: 800px
+}
+
+.hidden {
+    display: none;
 }
 
 h1 {
@@ -20,7 +25,7 @@ h2 {
     justify-content: center;
     width: 60%;
     margin: 20px auto;
-    background-color: #fff;
+    background-color: #EEF5FF;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
@@ -52,7 +57,7 @@ h2 {
 
 .inputDiv input[type="number"] {
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 2px solid #A25772;
     border-radius: 4px;
     box-sizing: border-box;
     width: 100%;
@@ -67,68 +72,56 @@ h2 {
     width: 100%;
     margin-top: 10px;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 2px solid #A25772;
     border-radius: 4px;
     box-sizing: border-box;
 }
 
-.floatInput {
-    margin-bottom: 10px;
-    width: 100%;
-    margin-top: 10px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.hidden {
-    display: none;
-}
-
-.visible {
+.input-div {
     width: 100%;
 }
 
-#buttonContainer {
+.input-div input[type="number"] {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+#button-container {
     display: flex;
     justify-content: center;
     gap: 2%;
     width: 60%;
     margin: 20px auto;
+
 }
 
 #startButton, #uploadButton {
-    width: 28%;
+    width: 40%;
 }
 
 #startButton {
-    background-color: blue;
+    background-color: #7C93C3;
     color: white;
 }
 
 button {
     display: inline-block;
     padding: 10px;
-    color: #fff;
+    color: #7C93C3;
     border: none;
     border-radius: 4px;
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #0056b3;
-}
-
 #uploadButton {
     display: inline-block;
     padding: 15px;
-    border: 2px solid #ddd;
+    border: 2px solid #A25772;
     border-radius: 4px;
     cursor: pointer;
 }
 
-#csvInput {
+#temporary-data-storage-div {
     display: none;
 }
 
@@ -139,16 +132,37 @@ button:hover {
     justify-content: center;
     width: 60%;
     margin: 20px auto;
-    background-color: #fff;
-    padding: 20px;
+    padding: 30px;
     border-radius: 8px;
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+    background-color: white;
+}
+
+.output-class {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 8px;
+    background-color: white;
 }
 
 .figure-container h2 {
     text-align: center;
 }
+.figure-container h3 {
+    text-align: center;
+}
 
-.figure-container canvas {
-    margin-bottom: 10px;
+.canvas {
+    background-color: #e8eff8;
+}
+
+.output-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 35%;
 }
