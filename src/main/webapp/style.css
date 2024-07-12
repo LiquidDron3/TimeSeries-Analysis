@@ -1,7 +1,8 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #9EB8D9;
-    min-width: 800px
+    background-color: #B3E2A7;
+    margin: 0;
+    padding: 0;
 }
 
 .hidden {
@@ -14,7 +15,7 @@ h1 {
 }
 
 h2 {
-    color: #666;
+    color: #071952;
     margin-bottom: 5px;
     margin-top: 15px;
 }
@@ -57,7 +58,7 @@ h2 {
 
 .inputDiv input[type="number"] {
     padding: 10px;
-    border: 2px solid #A25772;
+    border: 2px solid #80B9AD;
     border-radius: 4px;
     box-sizing: border-box;
     width: 100%;
@@ -72,7 +73,7 @@ h2 {
     width: 100%;
     margin-top: 10px;
     padding: 10px;
-    border: 2px solid #A25772;
+    border: 2px solid #80B9AD;
     border-radius: 4px;
     box-sizing: border-box;
 }
@@ -91,8 +92,7 @@ h2 {
     justify-content: center;
     gap: 2%;
     width: 60%;
-    margin: 20px auto;
-
+    margin: 30px auto;
 }
 
 #startButton, #uploadButton {
@@ -100,14 +100,14 @@ h2 {
 }
 
 #startButton {
-    background-color: #7C93C3;
+    background-color: #538392;
     color: white;
 }
 
 button {
     display: inline-block;
     padding: 10px;
-    color: #7C93C3;
+    color: #80B9AD;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -116,7 +116,7 @@ button {
 #uploadButton {
     display: inline-block;
     padding: 15px;
-    border: 2px solid #A25772;
+    border: 2px solid #80B9AD;
     border-radius: 4px;
     cursor: pointer;
 }
@@ -125,44 +125,53 @@ button {
     display: none;
 }
 
+.regression-output-section-class {
+    display: none;
+    background-color: #37B7C3;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.regression-output-class {
+    border-radius: 12px;
+    box-shadow: 0 0 15px 0 rgba(0,0,0,0.3);
+    background-color: #EBF4F6;
+    width: 60%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
 .figure-container {
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 60%;
-    margin: 20px auto;
-    padding: 30px;
-    border-radius: 8px;
-    background-color: white;
+    margin: auto;
+    padding: 15px;
 }
 
-.output-class {
-    display: none;
+.meta-data-class {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 60%;
     margin: 0 auto;
-    padding: 30px;
-    border-radius: 8px;
-    background-color: white;
-}
-
-.figure-container h2 {
-    text-align: center;
-}
-.figure-container h3 {
-    text-align: center;
-}
-
-.canvas {
-    background-color: #e8eff8;
+    padding: 15px;
+    border-radius: 12px;
 }
 
 .output-field {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 35%;
+    width: 30%;
+    margin: 0 auto;
 }
+
+.meta-data-class h2, .figure-container h2 {
+    text-align: center;
+    color: #071952;
+}
+
+

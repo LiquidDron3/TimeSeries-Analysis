@@ -83,9 +83,9 @@ public class DrawDataSetHandler {
     private CanvasRenderingContext2D prepareAndReturnCanvasContext(HTMLCanvasElement canvas) {
         CanvasRenderingContext2D ctx = canvas.getContext("2d").cast();
         int currentWindowWidth = Window.current().getInnerWidth();
-        int calculatedHeight = (int) (currentWindowWidth * 0.6 * 9 / 16);
+        int calculatedHeight = (int) (currentWindowWidth * 0.55 * 9 / 16);
         canvas.setHeight(calculatedHeight);
-        canvas.setWidth((int) (currentWindowWidth * 0.6));
+        canvas.setWidth((int) (currentWindowWidth * 0.55));
         ctx.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         return ctx;
     }
@@ -114,7 +114,7 @@ public class DrawDataSetHandler {
                 double clientX = eventProperty.getClientX();
                 double deltaX = clientX - lastMouseX;
                 int panning = panningMap.get(canvas.getId());
-                int threshold = 10;
+                int threshold = 5;
                 if (Math.abs(deltaX) >= threshold) {
                     panning -= (int)deltaX / threshold;
                     panningMap.put(canvas.getId(), panning);
@@ -123,7 +123,7 @@ public class DrawDataSetHandler {
                         Window.setTimeout(() -> {
                             updateCanvas(canvas);
                             redrawScheduled = false;
-                        }, 25);
+                        }, 10);
                     }
                     lastMouseX = clientX;
                 }

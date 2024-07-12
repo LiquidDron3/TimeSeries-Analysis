@@ -16,7 +16,6 @@
     <h2>Prediction Point</h2>
     <input type="number" id="PredictionPoint" placeholder="Enter Prediction Point">
   </div>
-
   <form id="regression_selector">
     <h2>Regression Model Selection</h2>
     <div id="simpleLinearRegressionDiv" class="inputDiv">
@@ -98,96 +97,120 @@
   </div>
 
   <div id="canvas-container">
-    <div id="simpleLinearRegressionOutput" class="output-class">
-      <h3>Metadata of Simple Linear Regression</h3>
-      <div class="output-field">
-        <label for="simpleLinearRegressionEvaluationForPrediction">Evaluation for Prediction: </label>
-        <p id="simpleLinearRegressionEvaluationForPrediction"></p>
-      </div>
-      <div class="output-field">
-        <label for="simpleLinearRegressionCoefficient">Coefficient: </label>
-        <p id="simpleLinearRegressionCoefficient"></p>
-      </div>
-    </div>
-    <figure class="figure-container" id="simpleLinearRegressionCanvasDiv">
-      <h2>Simple Linear Regression Graph</h2>
-      <canvas id="simpleLinearRegressionCanvas"></canvas>
-    </figure>
-    <div id="constRegressionOutput" class="output-class">
-      <h3>Metadata of Constant Regression</h3>
-      <div class="output-field">
-        <label for="constRegressionEvaluationForPrediction">Evaluation for Prediction: </label>
-        <p id="constRegressionEvaluationForPrediction"></p>
-      </div>
-      <div class="output-field">
-        <label for="constRegressionCoefficient">Coefficient: </label>
-        <p id="constRegressionCoefficient"></p>
+    <div id="simpleLinearRegressionOutput" class="regression-output-section-class">
+      <div class="regression-output-class">
+        <div id="simpleLinearRegressionMetaData" class="meta-data-class">
+          <h2>Metadata of Simple Linear Regression</h2>
+          <div class="output-field">
+            <label for="simpleLinearRegressionEvaluationForPrediction">Evaluation for Prediction: </label>
+            <p id="simpleLinearRegressionEvaluationForPrediction"></p>
+          </div>
+          <div class="output-field">
+            <label for="simpleLinearRegressionCoefficient">Coefficient: </label>
+            <p id="simpleLinearRegressionCoefficient"></p>
+          </div>
+        </div>
+        <figure id="simpleLinearRegressionCanvasDiv" class="figure-container">
+          <h2>Simple Linear Regression Graph</h2>
+          <canvas id="simpleLinearRegressionCanvas"></canvas>
+        </figure>
       </div>
     </div>
-    <figure class="figure-container" id="constRegressionCanvasDiv">
-      <h2>Constant Regression Graph</h2>
-      <canvas id="constRegressionCanvas" class="canvas"></canvas>
-    </figure>
-    <div id="polynomialRegressionOutput" class="output-class">
-      <h3>Metadata of Polynomial Regression</h3>
-      <div class="output-field">
-        <label for="polynomialRegressionEvaluationForPrediction">Evaluation for Prediction: </label>
-        <p id="polynomialRegressionEvaluationForPrediction"></p>
-      </div>
-      <div class="output-field">
-        <label for="polynomialRegressionCoefficient">Coefficient: </label>
-        <p id="polynomialRegressionCoefficient"></p>
-      </div>
-    </div>
-    <figure class="figure-container" id="polynomialRegressionCanvasDiv">
-      <h2>Polynomial Regression</h2>
-      <canvas id="polynomialRegressionCanvas" class="canvas"></canvas>
-    </figure>
-    <div id="autoRegressionOutput" class="output-class">
-      <h3>Metadata of Auto Regression</h3>
-      <div class="output-field">
-        <label for="autoRegressionEvaluationForPrediction">Evaluation for Prediction: </label>
-        <p id="autoRegressionEvaluationForPrediction"></p>
-      </div>
-      <div class="output-field">
-        <label for="autoRegressionCoefficient">Coefficient: </label>
-        <p id="autoRegressionCoefficient"></p>
+    <div id="constRegressionOutput" class="regression-output-section-class">
+      <div class="regression-output-class">
+        <div id="constRegressionMetaData" class="meta-data-class">
+          <h2>Metadata of Constant Regression</h2>
+          <div class="output-field">
+            <label for="constRegressionEvaluationForPrediction">Evaluation for Prediction: </label>
+            <p id="constRegressionEvaluationForPrediction"></p>
+          </div>
+          <div class="output-field">
+            <label for="constRegressionCoefficient">Coefficient: </label>
+            <p id="constRegressionCoefficient"></p>
+          </div>
+        </div>
+        <figure class="figure-container" id="constRegressionCanvasDiv">
+          <h2>Constant Regression Graph</h2>
+          <canvas id="constRegressionCanvas"></canvas>
+        </figure>
       </div>
     </div>
-    <figure class="figure-container" id="autoRegressionCanvasDiv">
-      <h2>Auto Regression</h2>
-      <canvas id="autoRegressionCanvas" class="canvas"></canvas>
-    </figure>
-    <div id="autoRegressionMovingAverageOutput" class="output-class">
-      <h3>Metadata of Auto Regression Moving Average</h3>
-      <div class="output-field">
-        <label for="autoRegressionMovingAverageEvaluationForPrediction">Evaluation for Prediction: </label>
-        <p id="autoRegressionMovingAverageEvaluationForPrediction"></p>
-      </div>
-      <div class="output-field">
-        <label for="autoRegressionMovingAverageCoefficient">Coefficient: </label>
-        <p id="autoRegressionMovingAverageCoefficient"></p>
-      </div>
-    </div>
-    <figure class="figure-container" id="autoRegressionMovingAverageCanvasDiv">
-      <h2>Auto Regression Moving Average</h2>
-      <canvas id="autoRegressionMovingAverageCanvas" class="canvas"></canvas>
-    </figure>
-    <div id="autoRegressionIntegratedAverageOutput" class="output-class">
-      <h3>Metadata of Auto Regression Integrated Moving Average</h3>
-      <div class="output-field">
-        <label for="autoRegressionIntegratedAverageEvaluationForPrediction">Evaluation for Prediction: </label>
-        <p id="autoRegressionIntegratedAverageEvaluationForPrediction"></p>
-      </div>
-      <div class="output-field">
-        <label for="autoRegressionIntegratedAverageCoefficient">Coefficient: </label>
-        <p id="autoRegressionIntegratedAverageCoefficient"></p>
+    <div id="polynomialRegressionOutput" class="regression-output-section-class">
+      <div class="regression-output-class">
+        <div id="polynomialRegressionMetaData" class="meta-data-class">
+          <h2>Metadata of Polynomial Regression</h2>
+          <div class="output-field">
+            <label for="polynomialRegressionEvaluationForPrediction">Evaluation for Prediction: </label>
+            <p id="polynomialRegressionEvaluationForPrediction"></p>
+          </div>
+          <div class="output-field">
+            <label for="polynomialRegressionCoefficient">Coefficient: </label>
+            <p id="polynomialRegressionCoefficient"></p>
+          </div>
+        </div>
+        <figure class="figure-container" id="polynomialRegressionCanvasDiv">
+          <h2>Polynomial Regression</h2>
+          <canvas id="polynomialRegressionCanvas"></canvas>
+        </figure>
       </div>
     </div>
-    <figure class="figure-container" id="autoRegressionIntegratedAverageCanvasDiv">
-      <h2>Auto Regression Integrated Moving Average</h2>
-      <canvas id="autoRegressionIntegratedAverageCanvas" class="canvas"></canvas>
-    </figure>
+    <div id="autoRegressionOutput" class="regression-output-section-class">
+      <div class="regression-output-class">
+        <div id="autoRegressionMetaData" class="meta-data-class">
+          <h2>Metadata of Auto Regression</h2>
+          <div class="output-field">
+            <label for="autoRegressionEvaluationForPrediction">Evaluation for Prediction: </label>
+            <p id="autoRegressionEvaluationForPrediction"></p>
+          </div>
+          <div class="output-field">
+            <label for="autoRegressionCoefficient">Coefficient: </label>
+            <p id="autoRegressionCoefficient"></p>
+          </div>
+        </div>
+        <figure class="figure-container" id="autoRegressionCanvasDiv">
+          <h2>Auto Regression</h2>
+          <canvas id="autoRegressionCanvas" ></canvas>
+        </figure>
+      </div>
+    </div>
+    <div id="autoRegressionMovingAverageOutput" class="regression-output-section-class">
+      <div class="regression-output-class">
+        <div id="autoRegressionMovingAverageMetaData" class="meta-data-class">
+          <h2>Metadata of Auto Regression Moving Average</h2>
+          <div class="output-field">
+            <label for="autoRegressionMovingAverageEvaluationForPrediction">Evaluation for Prediction: </label>
+            <p id="autoRegressionMovingAverageEvaluationForPrediction"></p>
+          </div>
+          <div class="output-field">
+            <label for="autoRegressionMovingAverageCoefficient">Coefficient: </label>
+            <p id="autoRegressionMovingAverageCoefficient"></p>
+          </div>
+        </div>
+        <figure class="figure-container" id="autoRegressionMovingAverageCanvasDiv">
+          <h2>Auto Regression Moving Average</h2>
+          <canvas id="autoRegressionMovingAverageCanvas"></canvas>
+        </figure>
+      </div>
+    </div>
+    <div id="autoRegressionIntegratedAverageOutput" class="regression-output-section-class">
+      <div class="regression-output-class">
+        <div id="autoRegressionIntegratedAverageMetaData" class="meta-data-class">
+          <h2>Metadata of Auto Regression Integrated Moving Average</h2>
+          <div class="output-field">
+            <label for="autoRegressionIntegratedAverageEvaluationForPrediction">Evaluation for Prediction: </label>
+            <p id="autoRegressionIntegratedAverageEvaluationForPrediction"></p>
+          </div>
+          <div class="output-field">
+            <label for="autoRegressionIntegratedAverageCoefficient">Coefficient: </label>
+            <p id="autoRegressionIntegratedAverageCoefficient"></p>
+          </div>
+        </div>
+        <figure class="figure-container" id="autoRegressionIntegratedAverageCanvasDiv">
+          <h2>Auto Regression Integrated Moving Average</h2>
+          <canvas id="autoRegressionIntegratedAverageCanvas"></canvas>
+        </figure>
+      </div>
+    </div>
   </div>
 </body>
 </html>
