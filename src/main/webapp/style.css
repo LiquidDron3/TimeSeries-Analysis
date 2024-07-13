@@ -1,5 +1,14 @@
+:root {
+    --tr: all 0.5s ease 0s;
+    --cs1: #005e38;
+    --cs2: #03a65a;
+    --cw1: #c24914;
+    --cw2: #fc8621;
+    --ce1: #851d41;
+    --ce2: #db3056;
+}
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Varela Round', sans-serif;
     background-color: #B3E2A7;
     margin: 0;
     padding: 0;
@@ -29,7 +38,7 @@ h2 {
     background-color: #EEF5FF;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
 }
 
 .checkbox-label {
@@ -91,7 +100,7 @@ h2 {
     display: flex;
     justify-content: center;
     gap: 2%;
-    width: 60%;
+    width: 50%;
     margin: 30px auto;
 }
 
@@ -174,4 +183,100 @@ button {
     color: #071952;
 }
 
+.toast.success {
+    --bg: var(--cs1);
+    --clr: var(--cs2);
+}
 
+.toast.warning {
+    --bg: var(--cw1);
+    --clr: var(--cw2);
+}
+
+.toast.error {
+    --bg: var(--ce1);
+    --clr: var(--ce2);
+}
+
+.toast-item {
+    max-height: 25rem;
+    transition: var(--tr);
+    position: relative;
+}
+
+.toast {
+    background: #CDD0CB;
+    padding: 1rem 2rem 1rem 2rem;
+    position: fixed;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    bottom: 0;
+    right: 0;
+    max-width: 16rem;
+    min-width: 10rem;
+    transition: var(--tr);
+    border: 0.15rem solid #fff2;
+    border-radius: 1rem;
+    box-shadow: 0 0 1rem 0 var(--clr);
+}
+
+.toast:before {
+    content: "";
+    position: absolute;
+    width: 0.5rem;
+    height: calc(100% - 1.5rem);
+    top: 0.75rem;
+    left: 0.5rem;
+    z-index: 0;
+    border-radius: 1rem;
+    background: var(--clr);
+}
+
+.toast h3 {
+    font-size: 1.2rem;
+    margin: 0;
+    line-height: 1.35rem;
+    font-weight: 600;
+    position: relative;
+    color: var(--clr);
+}
+
+.toast p {
+    position: relative;
+    font-size: 0.95rem;
+    z-index: 1;
+    margin: 0.25rem 0 0;
+    color: #595959;
+    line-height: 1.3rem;
+}
+
+.close {
+    position: absolute;
+    width: 1.35rem;
+    height: 1.35rem;
+    text-align: center;
+    right: 1rem;
+    cursor: pointer;
+    border-radius: 100%;
+}
+
+.close:after {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    font-size: 1.8rem;
+    content: "+";
+    transform: rotate(-45deg);
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #595959;
+    text-indent: 1px;
+}
+
+.close:hover:after {
+    background: var(--clr);
+    color: #fff;
+}

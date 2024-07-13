@@ -9,6 +9,7 @@ public final class Client {
     private static HtmlHandler htmlHandler;
     private static RegressionHandler regressionHandler;
     private static DrawDataSetHandler drawDataSethandler;
+    private  static ErrorNotificationHandler errorNotificationHandler;
 
 
     public static void main(String[] args) {
@@ -22,6 +23,7 @@ public final class Client {
     }
 
     private static void initHandlers(HTMLDocument document) {
+        errorNotificationHandler = new ErrorNotificationHandler(document);
         dataPreparationHandler = new DataPreparationHandler();
         htmlHandler = new HtmlHandler(document);
         regressionHandler = new RegressionHandler(htmlHandler);
@@ -55,5 +57,6 @@ public final class Client {
             htmlHandler.setEvaluationOutputElement(regression, roundedOutputValue);
         }
         htmlHandler.scrollToCanvasContainerWithTopOffset();
+        errorNotificationHandler.displaySuccessMessage();
     }
 }

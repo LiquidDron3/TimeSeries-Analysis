@@ -6,6 +6,7 @@
   <script src="script.js"></script>
   <link rel="stylesheet" type="text/css" href="style.css">
   <link rel="icon" href="Assets/favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
   <script type="text/javascript" charset="utf-8" src="teavm/classes.js"></script>
 </head>
 <body onload="main()">
@@ -212,5 +213,26 @@
       </div>
     </div>
   </div>
+    <div class="toast-item success">
+      <div class="toast success hidden">
+        <label id="toastSuccessClose" class="close"></label>
+        <h3>Success!</h3>
+        <p>Regression calculation finished successfully!</p>
+      </div>
+    </div>
+    <div class="toast-item warning">
+      <div class="toast warning hidden">
+        <label id="toastWarningClose" class="close"></label>
+        <h3>Warning!</h3>
+        <p id="toastWarningMessage"></p>
+      </div>
+    </div>
+    <div class="toast-item error">
+      <div class="toast error hidden">
+        <label id="toastErrorClose" class="close"></label>
+        <h3>Error!</h3>
+        <p id="toastErrorMessage"></p>
+      </div>
+    </div>
 </body>
 </html>

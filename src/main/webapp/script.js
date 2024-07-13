@@ -59,8 +59,3 @@ function handleFileSelect(event) {
     };
     reader.readAsText(file);
 }
-
-
-
-
-
