@@ -6,7 +6,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class DataPreparationHandlerTest {
-    DataPreparationHandler handler = new DataPreparationHandler();
 
     @Test
     public void prepareDataSetWithPredictionPointIsZero() {
@@ -22,7 +21,7 @@ public class DataPreparationHandlerTest {
         };
         int predictionPoint = 0;
 
-        double[][] result = handler.prepareDataSet(inputData, calculatedData, predictionPoint);
+        double[][] result = DataPreparationHandler.prepareDataSet(inputData, calculatedData, predictionPoint);
 
         assertArrayEquals(expectedOutput, result);
     }
@@ -42,7 +41,7 @@ public class DataPreparationHandlerTest {
         };
         int predictionPoint = 5;
 
-        double[][] result = handler.prepareDataSet(inputData, calculatedData, predictionPoint);
+        double[][] result = DataPreparationHandler.prepareDataSet(inputData, calculatedData, predictionPoint);
 
         assertArrayEquals(expectedOutput, result);
     }
@@ -64,7 +63,7 @@ public class DataPreparationHandlerTest {
         };
         int predictionPoint = 5;
 
-        double[][] result = handler.prepareDataSet(inputData, calculatedData, predictionPoint);
+        double[][] result = DataPreparationHandler.prepareDataSet(inputData, calculatedData, predictionPoint);
 
         assertArrayEquals(expectedOutput, result);
     }
@@ -78,7 +77,7 @@ public class DataPreparationHandlerTest {
         int predictionPoint = 1;
 
         try {
-            handler.prepareDataSet(inputData, calculatedData, predictionPoint);
+            DataPreparationHandler.prepareDataSet(inputData, calculatedData, predictionPoint);
             fail("IllegalArgumentException was expected here.");
         } catch (IllegalArgumentException e) {
             assertEquals(Messages.ERROR_EMPTY_DATASET, e.getMessage());
@@ -94,7 +93,7 @@ public class DataPreparationHandlerTest {
         int predictionPoint = 1;
 
         try {
-            handler.prepareDataSet(inputData, calculatedData, predictionPoint);
+            DataPreparationHandler.prepareDataSet(inputData, calculatedData, predictionPoint);
             fail("IllegalArgumentException was expected here.");
         } catch (IllegalArgumentException e) {
             assertEquals(Messages.ERROR_EMPTY_DATASET, e.getMessage());
@@ -112,7 +111,7 @@ public class DataPreparationHandlerTest {
         int predictionPoint = -1;
 
         try {
-            handler.prepareDataSet(inputData, calculatedData, predictionPoint);
+            DataPreparationHandler.prepareDataSet(inputData, calculatedData, predictionPoint);
             fail("IllegalArgumentException was expected here.");
         } catch (IllegalArgumentException e) {
             assertEquals(Messages.ERROR_NEGATIVE_PREDICTION_POINT, e.getMessage());
@@ -130,7 +129,7 @@ public class DataPreparationHandlerTest {
                 Double.NaN, Double.NaN, Double.NaN, Double.NaN, Double.NaN, Double.NaN};
         int predictionPoint = 9;
 
-        double[] result = handler.fillInputDataSetWithNan(inputData, predictionPoint);
+        double[] result = DataPreparationHandler.fillInputDataSetWithNan(inputData, predictionPoint);
 
         assertArrayEquals(expectedDataSet, result, 0.01);
     }
@@ -145,7 +144,7 @@ public class DataPreparationHandlerTest {
                 40.18, 10.98, 40.1, 83.68, 11.55};
         int predictionPoint = 0;
 
-        double[] result = handler.fillInputDataSetWithNan(inputData, predictionPoint);
+        double[] result = DataPreparationHandler.fillInputDataSetWithNan(inputData, predictionPoint);
 
         assertArrayEquals(expectedDataSet, result, 0.01);
     }
@@ -161,7 +160,7 @@ public class DataPreparationHandlerTest {
                 40.18, 10.98, 40.1, 83.68, 11.55};
         int predictionPoint = 10;
 
-        double[] result = handler.fillCalculatedDataSetWithNan(inputData, calculatedData, predictionPoint);
+        double[] result = DataPreparationHandler.fillCalculatedDataSetWithNan(inputData, calculatedData, predictionPoint);
 
         assertArrayEquals(expectedDataSet, result, 0.01);
     }
@@ -178,7 +177,7 @@ public class DataPreparationHandlerTest {
                 26.58, 55.98, 66.7, 40.18, 10.98, 40.1, 83.68, 11.55, };
         int predictionPoint = 15;
 
-        double[] result = handler.fillCalculatedDataSetWithNan(inputData, calculatedData, predictionPoint);
+        double[] result = DataPreparationHandler.fillCalculatedDataSetWithNan(inputData, calculatedData, predictionPoint);
 
         assertArrayEquals(expectedDataSet, result, 0.01);
     }
@@ -190,7 +189,7 @@ public class DataPreparationHandlerTest {
         double[] expectedDataSet = {Double.NaN, Double.NaN, Double.NaN, Double.NaN, Double.NaN, 80.67 };
         int predictionPoint = 0;
 
-        double[] result = handler.fillCalculatedDataSetWithNan(inputData, calculatedData, predictionPoint);
+        double[] result = DataPreparationHandler.fillCalculatedDataSetWithNan(inputData, calculatedData, predictionPoint);
 
         assertArrayEquals(expectedDataSet, result, 0.01);
     }

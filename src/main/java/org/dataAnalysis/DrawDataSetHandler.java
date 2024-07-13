@@ -9,19 +9,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DrawDataSetHandler {
-    private boolean isPanning = false;
-    private double lastMouseX = 0;
-    private boolean redrawScheduled = false;
-    private static DataPreparationHandler dataPreparationHandler;
-    Map<String, double[][]> inputDataSetsMap = new HashMap<>();
-    Map<String, Integer> panningMap = new HashMap<>();
-    Map<String, Double> zoomMap = new HashMap<>();
+    private static boolean isPanning = false;
+    private static double lastMouseX = 0;
+    private static boolean redrawScheduled = false;
+    private static final Map<String, double[][]> inputDataSetsMap = new HashMap<>();
+    private static final Map<String, Integer> panningMap = new HashMap<>();
+    private static final Map<String, Double> zoomMap = new HashMap<>();
 
-    public DrawDataSetHandler(DataPreparationHandler dataPreparationHandler) {
-        DrawDataSetHandler.dataPreparationHandler = dataPreparationHandler;
-    }
-
-    private double getMinOfDataset(double[] columnOne, double[] columnTwo) {
+    private static double getMinOfDataset(double[] columnOne, double[] columnTwo) {
         if(columnOne.length == 0 || columnTwo.length == 0) {
             throw new IllegalArgumentException(Messages.ERROR_EMPTY_DATASET);
         }
@@ -47,7 +42,7 @@ public class DrawDataSetHandler {
         }
     }
 
-    private double getMaxOfDataset(double[] columnOne, double[] columnTwo) {
+    private static double getMaxOfDataset(double[] columnOne, double[] columnTwo) {
         if(columnOne.length == 0 || columnTwo.length == 0) {
             throw new IllegalArgumentException(Messages.ERROR_EMPTY_DATASET);
         }
@@ -72,7 +67,7 @@ public class DrawDataSetHandler {
         }
     }
 
-    public void resetAndInitializeCanvasEventListeners(HTMLCanvasElement canvas) {
+    public static void resetAndInitializeCanvasEventListeners(HTMLCanvasElement canvas) {
         panningMap.put(canvas.getId(), 0);
         zoomMap.put(canvas.getId(), 1.0);
         addPanningEventListeners(canvas);
@@ -80,7 +75,7 @@ public class DrawDataSetHandler {
         addResizeEventListener(canvas);
     }
 
-    private CanvasRenderingContext2D prepareAndReturnCanvasContext(HTMLCanvasElement canvas) {
+    private static CanvasRenderingContext2D prepareAndReturnCanvasContext(HTMLCanvasElement canvas) {
         CanvasRenderingContext2D ctx = canvas.getContext("2d").cast();
         int currentWindowWidth = Window.current().getInnerWidth();
         int calculatedHeight = (int) (currentWindowWidth * 0.55 * 9 / 16);
@@ -90,18 +85,18 @@ public class DrawDataSetHandler {
         return ctx;
     }
 
-    public void prepareAndDrawDataSetOnCanvas(HTMLCanvasElement canvas, double[][] dataSet) {
+    public static void prepareAndDrawDataSetOnCanvas(HTMLCanvasElement canvas, double[][] dataSet) {
         inputDataSetsMap.put(canvas.getId(), dataSet);
         int standardDisplayedDataPoints = 200;
         CanvasRenderingContext2D ctx = prepareAndReturnCanvasContext(canvas);
         resetAndInitializeCanvasEventListeners(canvas);
         double zoomLevel = zoomMap.get(canvas.getId());
-        int[] dataSetIndices =  dataPreparationHandler.getDataSetIndicesWithZoom(standardDisplayedDataPoints, dataSet, zoomLevel);
-        double[][] extractDataFromDataSet = dataPreparationHandler.extractSubArray(dataSet, dataSetIndices[0], dataSetIndices[1]);
+        int[] dataSetIndices =  DataPreparationHandler.getDataSetIndicesWithZoom(standardDisplayedDataPoints, dataSet, zoomLevel);
+        double[][] extractDataFromDataSet = DataPreparationHandler.extractSubArray(dataSet, dataSetIndices[0], dataSetIndices[1]);
         drawTwoDataSetsOnCanvas(ctx, extractDataFromDataSet[0], extractDataFromDataSet[1], extractDataFromDataSet[2]);
     }
 
-    private void addPanningEventListeners(HTMLCanvasElement canvas) {
+    private static void addPanningEventListeners(HTMLCanvasElement canvas) {
         canvas.addEventListener("mousedown", event -> {
             MouseEventProperty eventProperty = event.cast();
             lastMouseX = eventProperty.getClientX();
@@ -141,7 +136,7 @@ public class DrawDataSetHandler {
         canvas.addEventListener("mouseleave", event -> isPanning = false);
     }
 
-    public void addZoomEventListeners(HTMLCanvasElement canvas) {
+    public static void addZoomEventListeners(HTMLCanvasElement canvas) {
         int maxDataPoints = inputDataSetsMap.get(canvas.getId()).length;
         int standardDisplayedDataPoints = 200;
         int minDataPoints = 10;
@@ -168,16 +163,16 @@ public class DrawDataSetHandler {
         });
     }
 
-    public void addResizeEventListener(HTMLCanvasElement canvas) {
+    public static void addResizeEventListener(HTMLCanvasElement canvas) {
         Window.current().addEventListener("resize", event -> updateCanvas(canvas));
     }
 
-    public void updateCanvas(HTMLCanvasElement canvas) {
+    public static void updateCanvas(HTMLCanvasElement canvas) {
         double[][] inputDataSet = inputDataSetsMap.get(canvas.getId());
         int standardDisplayedDataPoints = 200;
         CanvasRenderingContext2D ctx = prepareAndReturnCanvasContext(canvas);
         double zoomLevel = zoomMap.get(canvas.getId());
-        int[] dataSetIndices =  dataPreparationHandler.getDataSetIndicesWithZoom(standardDisplayedDataPoints, inputDataSet, zoomLevel);
+        int[] dataSetIndices =  DataPreparationHandler.getDataSetIndicesWithZoom(standardDisplayedDataPoints, inputDataSet, zoomLevel);
 
         int startIndex = dataSetIndices[0];
         int endOfIndex = dataSetIndices[1];
@@ -194,11 +189,11 @@ public class DrawDataSetHandler {
         startIndex += panning;
         endOfIndex += panning;
 
-        double[][] extractDataFromDataSet = dataPreparationHandler.extractSubArray(inputDataSet, startIndex, endOfIndex);
+        double[][] extractDataFromDataSet = DataPreparationHandler.extractSubArray(inputDataSet, startIndex, endOfIndex);
         drawTwoDataSetsOnCanvas(ctx, extractDataFromDataSet[0], extractDataFromDataSet[1], extractDataFromDataSet[2]);
     }
 
-    private void drawTwoDataSetsOnCanvas(CanvasRenderingContext2D ctx, double[] firstArray, double[] secondArray, double[] thirdArray) {
+    private static void drawTwoDataSetsOnCanvas(CanvasRenderingContext2D ctx, double[] firstArray, double[] secondArray, double[] thirdArray) {
         double min = getMinOfDataset(firstArray, secondArray);
         double max = getMaxOfDataset(firstArray, secondArray);
         drawAxisAndReferencePoints(ctx, thirdArray, 10, max, min);
@@ -206,7 +201,7 @@ public class DrawDataSetHandler {
         drawSingleDataSetOnCanvas(ctx, secondArray, max, min, "red");
     }
 
-    public void drawSingleDataSetOnCanvas(CanvasRenderingContext2D ctx, double[] inputData, double max, double min, String colour) {
+    private static void drawSingleDataSetOnCanvas(CanvasRenderingContext2D ctx, double[] inputData, double max, double min, String colour) {
         ctx.beginPath();
         ctx.setStrokeStyle(colour);
 
@@ -234,7 +229,7 @@ public class DrawDataSetHandler {
         ctx.stroke();
     }
 
-    public void drawAxisAndReferencePoints(CanvasRenderingContext2D ctx, double[] indexData, int numReferencePoints, double max, double min) {
+    public static void drawAxisAndReferencePoints(CanvasRenderingContext2D ctx, double[] indexData, int numReferencePoints, double max, double min) {
         if(indexData == null) {
             throw new IllegalArgumentException(Messages.ERROR_EMPTY_DATASET);
         }

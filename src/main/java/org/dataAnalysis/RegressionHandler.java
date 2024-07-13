@@ -7,60 +7,54 @@ import java.util.Collections;
 import java.util.List;
 
 public class RegressionHandler {
-    HtmlHandler htmlHandler;
-
-    public RegressionHandler(HtmlHandler htmlHandler) {
-        this.htmlHandler = htmlHandler;
-    }
-
-    public Model createAndInitRegression(String selectedRegression, double[] inputDataSet) {
+    public static Model createAndInitRegression(String selectedRegression, double[] inputDataSet) {
         double regression;
         switch (selectedRegression) {
             case "simpleLinearRegression" -> {
                 SimpleLinearRegression simpleLinearRegression = new SimpleLinearRegression();
                 regression = simpleLinearRegression.init(inputDataSet);
-                htmlHandler.setCoefficientOutputElement(selectedRegression, regression);
+                HtmlHandler.setCoefficientOutputElement(selectedRegression, regression);
                 return simpleLinearRegression;
             }
             case "constRegression" -> {
                 ConstantRegression constantRegression = new ConstantRegression();
                 regression = constantRegression.init(inputDataSet);
-                htmlHandler.setCoefficientOutputElement(selectedRegression, regression);
+                HtmlHandler.setCoefficientOutputElement(selectedRegression, regression);
                 return constantRegression;
             }
             case "polynomialRegression" -> {
                 int[] argsPolynomial = getRegressionParameters(selectedRegression);
                 PolynomialRegression polynomialRegression = new PolynomialRegression(argsPolynomial[0]);
                 regression = polynomialRegression.init(inputDataSet);
-                htmlHandler.setCoefficientOutputElement(selectedRegression, regression);
+                HtmlHandler.setCoefficientOutputElement(selectedRegression, regression);
                 return polynomialRegression;
             }
             case "autoRegression" -> {
                 int[] argsAuto = getRegressionParameters(selectedRegression);
                 AutoRegression regressionAR = new AutoRegression(argsAuto[0]);
                 regression = regressionAR.init(inputDataSet);
-                htmlHandler.setCoefficientOutputElement(selectedRegression, regression);
+                HtmlHandler.setCoefficientOutputElement(selectedRegression, regression);
                 return regressionAR;
             }
             case "autoRegressionMovingAverage" -> {
                 int[] argsARMA = getRegressionParameters(selectedRegression);
                 AutoRegressiveMovingAverage regressionARMA = new AutoRegressiveMovingAverage(argsARMA[0], argsARMA[1]);
                 regression = regressionARMA.init(inputDataSet);
-                htmlHandler.setCoefficientOutputElement(selectedRegression, regression);
+                HtmlHandler.setCoefficientOutputElement(selectedRegression, regression);
                 return regressionARMA;
             }
             case "autoRegressionIntegratedAverage" -> {
                 int[] argsARIMA = getRegressionParameters(selectedRegression);
                 AutoRegressiveIntegratedMovingAverage regressionARIMA = new AutoRegressiveIntegratedMovingAverage(argsARIMA[0], argsARIMA[1], argsARIMA[2]);
                 regression = regressionARIMA.init(inputDataSet);
-                htmlHandler.setCoefficientOutputElement(selectedRegression, regression);
+                HtmlHandler.setCoefficientOutputElement(selectedRegression, regression);
                 return regressionARIMA;
             }
             default -> throw new IllegalArgumentException(Messages.ERROR_UNKNOWN_REGRESSION);
         }
     }
 
-    private int[] getRegressionParameters(String selectedRegression) {
+    public static int[] getRegressionParameters(String selectedRegression) {
         List<String> inputNames = switch (selectedRegression) {
             case "polynomialRegression" -> Collections.singletonList("Degree");
             case "autoRegression" -> Collections.singletonList("PValue");
@@ -71,7 +65,7 @@ public class RegressionHandler {
 
         int[] values = new int[inputNames.size()];
         for (int i = 0; i < inputNames.size(); i++) {
-            HTMLInputElement input = htmlHandler.getRegressionParameterElement(selectedRegression, inputNames.get(i));
+            HTMLInputElement input = HtmlHandler.getRegressionParameterElement(selectedRegression, inputNames.get(i));
             if (input == null || input.getValue().isEmpty()) {
                 throw new IllegalArgumentException(Messages.ERROR_EMPTY_PARAMETER);
             }
@@ -80,13 +74,13 @@ public class RegressionHandler {
         return values;
     }
 
-    public boolean isInstanceAutoRegressionType(Model regression) {
+    public static boolean isInstanceAutoRegressionType(Model regression) {
         return regression instanceof AutoRegression ||
                 regression instanceof AutoRegressiveMovingAverage ||
                 regression instanceof AutoRegressiveIntegratedMovingAverage;
     }
 
-    public boolean isInstanceSupportedRegression(Model regression) {
+    public static boolean isInstanceSupportedRegression(Model regression) {
         return regression instanceof AutoRegression ||
                 regression instanceof AutoRegressiveMovingAverage ||
                 regression instanceof AutoRegressiveIntegratedMovingAverage ||
@@ -95,7 +89,7 @@ public class RegressionHandler {
                 regression instanceof PolynomialRegression;
     }
 
-    public double[] calculateDataSetForRegression(Model regression, int sizeOfInputData, int predictionPoint) {
+    public static double[] calculateDataSetForRegression(Model regression, int sizeOfInputData, int predictionPoint) {
         if(!isInstanceSupportedRegression(regression)) {
             throw new IllegalArgumentException(Messages.ERROR_UNKNOWN_REGRESSION);
         }
@@ -115,7 +109,7 @@ public class RegressionHandler {
         }
     }
 
-    protected double[] calculateHistoryDataSetOfRegression(Model regression, int lengthOfInputDataSet) {
+    public static double[] calculateHistoryDataSetOfRegression(Model regression, int lengthOfInputDataSet) {
         if(isInstanceAutoRegressionType(regression)) {
             throw new IllegalArgumentException(Messages.ERROR_UNKNOWN_REGRESSION);
         }
@@ -131,7 +125,7 @@ public class RegressionHandler {
         return dataSet;
     }
 
-    protected double[] calculateFutureDataSetOfRegression(Model regression, int predictionPoint) {
+    public static double[] calculateFutureDataSetOfRegression(Model regression, int predictionPoint) {
         double[] dataSet = new double[predictionPoint];
         for(int i = 1; i <= predictionPoint; i++) {
             dataSet[i - 1] = regression.eval(i);

@@ -3,7 +3,7 @@ package org.dataAnalysis;
 import java.util.Arrays;
 
 public class DataPreparationHandler {
-    public int[] getDataSetIndicesWithZoom(int standardDisplayedDataPoints, double[][] dataSet, double zoomLevel) {
+    public static int[] getDataSetIndicesWithZoom(int standardDisplayedDataPoints, double[][] dataSet, double zoomLevel) {
         int visibleDataPoints = (int) (standardDisplayedDataPoints / zoomLevel);
         int totalDataPoints = Math.min(visibleDataPoints, dataSet.length);
         int startIndex = Math.max(0, dataSet.length - visibleDataPoints);
@@ -11,7 +11,7 @@ public class DataPreparationHandler {
         return new int[] {startIndex, endIndex};
     }
 
-    public double[][] prepareDataSet(double[] inputData, double[] calculatedData, int predictionPoint) {
+    public static double[][] prepareDataSet(double[] inputData, double[] calculatedData, int predictionPoint) {
         if (predictionPoint < 0) {
             throw new IllegalArgumentException(Messages.ERROR_NEGATIVE_PREDICTION_POINT);
         }
@@ -41,7 +41,7 @@ public class DataPreparationHandler {
         return preparedDataSet;
     }
 
-    public double[] fillInputDataSetWithNan(double[] inputData, int predictionPoint) {
+    public static double[] fillInputDataSetWithNan(double[] inputData, int predictionPoint) {
         double[] preparedData = new double[inputData.length + predictionPoint];
 
         System.arraycopy(inputData, 0, preparedData, 0, inputData.length);
@@ -51,7 +51,7 @@ public class DataPreparationHandler {
         return preparedData;
     }
 
-    public double[] fillCalculatedDataSetWithNan(double[] inputData, double[] calculatedData, int predictionPoint) {
+    public static double[] fillCalculatedDataSetWithNan(double[] inputData, double[] calculatedData, int predictionPoint) {
         int inputLength = inputData.length;
         int calculatedLength = calculatedData.length;
         if (inputLength + predictionPoint == calculatedLength) {
@@ -67,7 +67,7 @@ public class DataPreparationHandler {
         }
     }
 
-    public double[] prepareRawInputData(String rawInputData) {
+    public static double[] prepareRawInputData(String rawInputData) {
         if (rawInputData.isEmpty()) {
             throw new IllegalArgumentException(Messages.ERROR_EMPTY_ARRAY);
         }
@@ -78,7 +78,7 @@ public class DataPreparationHandler {
                 .toArray();
     }
 
-    public double[][] extractSubArray(double[][] dataSet, int startIndex, int endIndex) {
+    public static double[][] extractSubArray(double[][] dataSet, int startIndex, int endIndex) {
         double[] firstArray = new double[endIndex - startIndex];
         double[] secondArray = new double[endIndex - startIndex];
         double[] thirdArray = new double[endIndex - startIndex];

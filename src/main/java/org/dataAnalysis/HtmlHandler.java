@@ -6,11 +6,11 @@ import org.teavm.jso.dom.html.*;
 public class HtmlHandler {
     public static HTMLDocument doc;
 
-    HtmlHandler(HTMLDocument doc) {
-        HtmlHandler.doc = doc;
+    public static void initDocument(HTMLDocument document) {
+        doc = document;
     }
 
-    public HTMLCanvasElement getCanvasElement(String regressionType) {
+    public static HTMLCanvasElement getCanvasElement(String regressionType) {
         try {
             return (HTMLCanvasElement) doc.getElementById(regressionType + "Canvas");
         } catch (ClassCastException e) {
@@ -18,7 +18,7 @@ public class HtmlHandler {
         }
     }
 
-    public void setEvaluationOutputElement(String regression, double value) {
+    public static void setEvaluationOutputElement(String regression, double value) {
         HTMLElement outputElement;
         try {
             outputElement = doc.getElementById(regression + "EvaluationForPrediction");
@@ -28,7 +28,7 @@ public class HtmlHandler {
         outputElement.setTextContent(String.valueOf(value));
     }
 
-    public void setCoefficientOutputElement(String regression, double value) {
+    public static void setCoefficientOutputElement(String regression, double value) {
         HTMLElement outputElement;
         try {
             outputElement = doc.getElementById(regression + "Coefficient");
@@ -39,15 +39,15 @@ public class HtmlHandler {
         outputElement.setTextContent(String.valueOf(value));
     }
 
-    public HTMLInputElement getStartButtonElement() {
+    public static HTMLInputElement getStartButtonElement() {
         return doc.getElementById("startButton").cast();
     }
 
-    public HTMLInputElement getRegressionParameterElement(String selectedRegression, String parameterName) {
+    public static HTMLInputElement getRegressionParameterElement(String selectedRegression, String parameterName) {
         return doc.getElementById(selectedRegression + parameterName).cast();
     }
 
-    public void scrollToCanvasContainerWithTopOffset() {
+    public static void scrollToCanvasContainerWithTopOffset() {
         int topOffset = 50;
         HTMLElement canvasContainer = doc.getElementById("canvas-container");
         int top = canvasContainer.getOffsetTop();
@@ -55,11 +55,11 @@ public class HtmlHandler {
         Window.current().scrollTo(left, top - topOffset);
     }
 
-    public HTMLInputElement getInputDataElement() {
+    public static HTMLInputElement getInputDataElement() {
         return doc.getElementById("temporary-data-storage").cast();
     }
 
-    public String[] getSelectedRegressionsFromHTML() {
+    public static String[] getSelectedRegressionsFromHTML() {
         HTMLFormElement form = doc.getElementById("regression_selector").cast();
         HTMLCollection inputs = form.getElementsByTagName("input").cast();
 
@@ -81,7 +81,7 @@ public class HtmlHandler {
         return selectedCheckboxes;
     }
 
-    public int getPredictionPointFromHTML() {
+    public static int getPredictionPointFromHTML() {
         HTMLInputElement predictionPointInput = doc.getElementById("PredictionPoint").cast();
         int predictionPoint = Integer.parseInt(predictionPointInput.getValue());
         if(predictionPoint < 0) {

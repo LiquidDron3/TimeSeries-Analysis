@@ -17,7 +17,6 @@ public class RegressionHandlerTest {
     AutoRegression autoRegression;
     AutoRegressiveMovingAverage autoRegressiveMovingAverage;
     AutoRegressiveIntegratedMovingAverage autoRegressiveIntegratedMovingAverage;
-    RegressionHandler regressionHandler;
 
     @Before
     public void setUp() {
@@ -38,32 +37,27 @@ public class RegressionHandlerTest {
 
         autoRegressiveIntegratedMovingAverage = new AutoRegressiveIntegratedMovingAverage(3, 1, 1);
         autoRegressiveIntegratedMovingAverage.init(inputDataSet);
-
-        HtmlHandler htmlHandler = Mockito.mock(HtmlHandler.class);
-        regressionHandler = new RegressionHandler(htmlHandler);
     }
 
     @Test
     public void checkIfInstanceIsAutoRegressionType() {
+        assertTrue(RegressionHandler.isInstanceAutoRegressionType(autoRegression));
+        assertTrue(RegressionHandler.isInstanceAutoRegressionType(autoRegressiveMovingAverage));
+        assertTrue(RegressionHandler.isInstanceAutoRegressionType(autoRegressiveIntegratedMovingAverage));
 
-        assertTrue(regressionHandler.isInstanceAutoRegressionType(autoRegression));
-        assertTrue(regressionHandler.isInstanceAutoRegressionType(autoRegressiveMovingAverage));
-        assertTrue(regressionHandler.isInstanceAutoRegressionType(autoRegressiveIntegratedMovingAverage));
-
-        assertFalse(regressionHandler.isInstanceAutoRegressionType(constantRegression));
-        assertFalse(regressionHandler.isInstanceAutoRegressionType(simpleLinearRegression));
-        assertFalse(regressionHandler.isInstanceAutoRegressionType(polynomialRegression));
+        assertFalse(RegressionHandler.isInstanceAutoRegressionType(constantRegression));
+        assertFalse(RegressionHandler.isInstanceAutoRegressionType(simpleLinearRegression));
+        assertFalse(RegressionHandler.isInstanceAutoRegressionType(polynomialRegression));
     }
 
     @Test
     public void checkIfInstanceIsSupported() {
-
-        assertTrue(regressionHandler.isInstanceSupportedRegression(autoRegression));
-        assertTrue(regressionHandler.isInstanceSupportedRegression(autoRegressiveMovingAverage));
-        assertTrue(regressionHandler.isInstanceSupportedRegression(autoRegressiveIntegratedMovingAverage));
-        assertTrue(regressionHandler.isInstanceSupportedRegression(constantRegression));
-        assertTrue(regressionHandler.isInstanceSupportedRegression(simpleLinearRegression));
-        assertTrue(regressionHandler.isInstanceSupportedRegression(polynomialRegression));
+        assertTrue(RegressionHandler.isInstanceSupportedRegression(autoRegression));
+        assertTrue(RegressionHandler.isInstanceSupportedRegression(autoRegressiveMovingAverage));
+        assertTrue(RegressionHandler.isInstanceSupportedRegression(autoRegressiveIntegratedMovingAverage));
+        assertTrue(RegressionHandler.isInstanceSupportedRegression(constantRegression));
+        assertTrue(RegressionHandler.isInstanceSupportedRegression(simpleLinearRegression));
+        assertTrue(RegressionHandler.isInstanceSupportedRegression(polynomialRegression));
     }
 
     @Test
@@ -120,7 +114,7 @@ public class RegressionHandlerTest {
                 251.33, 250.87, 250.41, 249.95, 249.48, 249.02, 248.56, 248.10, 247.64,
                 247.18, 246.71};
 
-        double[] calculatedDataSet = regressionHandler.calculateHistoryDataSetOfRegression(simpleLinearRegression,
+        double[] calculatedDataSet = RegressionHandler.calculateHistoryDataSetOfRegression(simpleLinearRegression,
                 inputDataLength);
 
         assertArrayEquals(expectedDataSet, calculatedDataSet, 0.01);
@@ -131,7 +125,7 @@ public class RegressionHandlerTest {
         double[] expectedDataSet = {
                 246.25, 245.79, 245.32, 244.86, 244.40};
 
-        double[] calculatedDataSet = regressionHandler.calculateFutureDataSetOfRegression(simpleLinearRegression,
+        double[] calculatedDataSet = RegressionHandler.calculateFutureDataSetOfRegression(simpleLinearRegression,
                 predictionPoint);
 
         assertArrayEquals(expectedDataSet, calculatedDataSet, 0.01);
@@ -145,7 +139,7 @@ public class RegressionHandlerTest {
                 251.33, 250.87, 250.41, 249.95, 249.48, 249.02, 248.56, 248.10, 247.64,
                 247.18, 246.71, 246.25, 245.79, 245.32, 244.86, 244.40};
 
-        double[] calculatedDataSet = regressionHandler.calculateDataSetForRegression(simpleLinearRegression, inputDataLength,
+        double[] calculatedDataSet = RegressionHandler.calculateDataSetForRegression(simpleLinearRegression, inputDataLength,
                 predictionPoint);
 
         assertArrayEquals(expectedDataSet, calculatedDataSet, 0.01);
@@ -156,7 +150,7 @@ public class RegressionHandlerTest {
         int inputDataLength = inputDataSet.length;
         double[] expectedDataSet = {245.66, 246.76, 247.58, 248.23, 248.77};
 
-        double[] calculatedDataSet = regressionHandler.calculateDataSetForRegression(autoRegression, inputDataLength,
+        double[] calculatedDataSet = RegressionHandler.calculateDataSetForRegression(autoRegression, inputDataLength,
                 predictionPoint);
 
         assertArrayEquals(expectedDataSet, calculatedDataSet, 0.01);
