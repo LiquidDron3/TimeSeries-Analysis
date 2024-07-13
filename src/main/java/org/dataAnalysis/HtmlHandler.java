@@ -1,9 +1,11 @@
 package org.dataAnalysis;
 
+import org.teavm.jso.browser.Window;
 import org.teavm.jso.dom.html.*;
 
 public class HtmlHandler {
     public static HTMLDocument doc;
+
     HtmlHandler(HTMLDocument doc) {
         HtmlHandler.doc = doc;
     }
@@ -16,6 +18,27 @@ public class HtmlHandler {
         }
     }
 
+    public void setEvaluationOutputElement(String regression, double value) {
+        HTMLElement outputElement;
+        try {
+            outputElement = doc.getElementById(regression + "EvaluationForPrediction");
+        } catch (ClassCastException e) {
+            throw new IllegalArgumentException(Messages.ERROR_UNKNOWN_REGRESSION);
+        }
+        outputElement.setTextContent(String.valueOf(value));
+    }
+
+    public void setCoefficientOutputElement(String regression, double value) {
+        HTMLElement outputElement;
+        try {
+            outputElement = doc.getElementById(regression + "Coefficient");
+        } catch (ClassCastException e) {
+            throw new IllegalArgumentException(Messages.ERROR_UNKNOWN_REGRESSION);
+        }
+        value = Math.round(value * 1000.0) / 1000.0;
+        outputElement.setTextContent(String.valueOf(value));
+    }
+
     public HTMLInputElement getStartButtonElement() {
         return doc.getElementById("startButton").cast();
     }
@@ -24,8 +47,16 @@ public class HtmlHandler {
         return doc.getElementById(selectedRegression + parameterName).cast();
     }
 
+    public void scrollToCanvasContainerWithTopOffset() {
+        int topOffset = 50;
+        HTMLElement canvasContainer = doc.getElementById("canvas-container");
+        int top = canvasContainer.getOffsetTop();
+        int left = canvasContainer.getOffsetLeft();
+        Window.current().scrollTo(left, top - topOffset);
+    }
+
     public HTMLInputElement getInputDataElement() {
-        return doc.getElementById("fileContent").cast();
+        return doc.getElementById("temporary-data-storage").cast();
     }
 
     public String[] getSelectedRegressionsFromHTML() {
