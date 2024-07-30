@@ -5,14 +5,14 @@ import org.teavm.jso.dom.html.HTMLButtonElement;
 import org.teavm.jso.dom.html.HTMLDocument;
 import org.teavm.jso.dom.html.HTMLElement;
 
-public class ErrorNotificationHandler {
+public class NotificationHandler {
     private static HTMLDocument doc;
 
-    public ErrorNotificationHandler(HTMLDocument doc) {
-        ErrorNotificationHandler.doc =  doc;
+    public static void initDocument(HTMLDocument doc) {
+        NotificationHandler.doc = doc;
     }
 
-    public void displaySuccessMessage() {
+    public static void displaySuccessMessage() {
         HTMLElement toastElement = doc.querySelector(".toast.success").cast();
         HTMLButtonElement closeBtn = doc.getElementById("toastSuccessClose").cast();
         toastElement.setAttribute("style", "display: block;");
@@ -21,7 +21,7 @@ public class ErrorNotificationHandler {
         Window.setTimeout(() -> toastElement.setAttribute("style", "display: none;"), 3000);
     }
 
-    public void displayWarningMessage(String message) {
+    public static void displayWarningMessage(String message) {
         HTMLElement toastElement = doc.querySelector(".toast.warning").cast();
         HTMLButtonElement closeBtn = doc.getElementById("toastWarningClose").cast();
         HTMLElement outputMessage = doc.getElementById("toastWarningMessage");
@@ -31,7 +31,7 @@ public class ErrorNotificationHandler {
         closeBtn.addEventListener("click", evt -> toastElement.setAttribute("style", "display: none;"));
     }
 
-    public void displayErrorMessage(String message) {
+    public static void displayErrorMessage(String message) {
         HTMLElement toastElement = doc.querySelector(".toast.error").cast();
         HTMLButtonElement closeBtn = doc.getElementById("toastErrorClose").cast();
         HTMLElement outputMessage = doc.getElementById("toastErrorMessage");

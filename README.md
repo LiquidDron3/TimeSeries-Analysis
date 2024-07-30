@@ -1,1 +1,1 @@
-# TimeSeries-Analysis
+[![codecov](https://codecov.io/github/LiquidDron3/TimeSeries-Analysis/branch/main/graph/badge.svg?token=BPO56CC9B3)](https://codecov.io/github/LiquidDron3/TimeSeries-Analysis)

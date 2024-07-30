@@ -5,13 +5,6 @@ import org.teavm.jso.browser.Window;
 import org.teavm.jso.dom.html.*;
 
 public final class Client {
-    private static DataPreparationHandler dataPreparationHandler;
-    private static HtmlHandler htmlHandler;
-    private static RegressionHandler regressionHandler;
-    private static DrawDataSetHandler drawDataSethandler;
-    private  static ErrorNotificationHandler errorNotificationHandler;
-
-
     public static void main(String[] args) {
         startProcess();
     }
@@ -23,40 +16,43 @@ public final class Client {
     }
 
     private static void initHandlers(HTMLDocument document) {
-        errorNotificationHandler = new ErrorNotificationHandler(document);
-        dataPreparationHandler = new DataPreparationHandler();
-        htmlHandler = new HtmlHandler(document);
-        regressionHandler = new RegressionHandler(htmlHandler);
-        drawDataSethandler = new DrawDataSetHandler(dataPreparationHandler);
+        NotificationHandler.initDocument(document);
+        HtmlHandler.initHtmlHandler(document);
     }
 
     private static void initStartButton() {
-        HTMLInputElement startButton = htmlHandler.getStartButtonElement();
-        startButton.addEventListener("click", evt -> processAndVisualizeRegression());
+        HTMLInputElement startButton = HtmlHandler.getStartButtonElement();
+        startButton.addEventListener("click", evt -> {
+            HtmlHandler.hideAllOutputDivs();
+            processAndVisualizeRegression();
+        });
     }
 
     private static double[] getRawInputData() {
-        HTMLInputElement getInputDataElement = htmlHandler.getInputDataElement();
+        HTMLInputElement getInputDataElement = HtmlHandler.getInputDataElement();
         String inputData = getInputDataElement.getValue();
-        return dataPreparationHandler.prepareRawInputData(inputData);
+        return DataPreparationHandler.prepareRawInputData(inputData);
     }
 
     private static void processAndVisualizeRegression() {
-        int predictionPoint = htmlHandler.getPredictionPointFromHTML();
+        int predictionPoint = HtmlHandler.getPredictionPointFromHTML();
         double[] rawInputData = getRawInputData();
-        String[] selectedRegressions = htmlHandler.getSelectedRegressionsFromHTML();
+        String[] selectedRegressions = HtmlHandler.getSelectedRegressionsFromHTML();
 
         for (String regression : selectedRegressions) {
-            Model reg = regressionHandler.createAndInitRegression(regression, rawInputData);
-            HTMLCanvasElement canvas = htmlHandler.getCanvasElement(regression);
-            double[] calculatedData = regressionHandler.calculateDataSetForRegression(reg, rawInputData.length,
-                    predictionPoint);
-            double[][] preparedDataSet = dataPreparationHandler.prepareDataSet(rawInputData, calculatedData, predictionPoint);
-            drawDataSethandler.prepareAndDrawDataSetOnCanvas(canvas, preparedDataSet);
+            Model reg = RegressionHandler.createAndInitRegression(regression, rawInputData);
+
+            double[] calculatedData = RegressionHandler.calculateDataSetForRegression(reg, rawInputData.length, predictionPoint);
+            double[][] preparedInputData = DataPreparationHandler.prepareInputDataForD3(rawInputData);
+            double[][] preparedCalculatedData = DataPreparationHandler.prepareCalcDataForD3(calculatedData,
+                    predictionPoint, reg);
+
             double roundedOutputValue = Math.round(calculatedData[predictionPoint-1] * 1000.0) / 1000.0;
-            htmlHandler.setEvaluationOutputElement(regression, roundedOutputValue);
+            HtmlHandler.setEvaluationOutputElement(regression, roundedOutputValue);
+            HtmlHandler.displayOutputDiv(regression);
+            D3Handler.drawLineGraph("#" + regression + "CanvasDiv", preparedInputData, preparedCalculatedData);
         }
-        htmlHandler.scrollToCanvasContainerWithTopOffset();
-        errorNotificationHandler.displaySuccessMessage();
+        HtmlHandler.scrollToCanvasContainerWithTopOffset();
+        NotificationHandler.displaySuccessMessage();
     }
 }

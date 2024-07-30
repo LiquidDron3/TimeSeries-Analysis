@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const startButton = document.getElementById('startButton');
     startButton.addEventListener('click', function() {
         updateCanvasBackgroundColors();
-        toggleVisibilityOfOutputDiv();
     });
 });
 
@@ -21,21 +20,6 @@ function toggleVisibilityOfRegressionInputDiv() {
         });
         if (!checkbox.checked) {
             hiddenDiv.classList.add('hidden');
-        }
-    });
-}
-
-function toggleVisibilityOfOutputDiv() {
-    const inputDivs = document.querySelectorAll('.inputDiv');
-    inputDivs.forEach(function(div) {
-        const checkbox = div.querySelector('input[type="checkbox"]');
-        const outputSection = checkbox.id + "Output";
-        const outputSectionId = document.querySelector('#' + outputSection);
-
-        if (checkbox.checked) {
-            outputSectionId.style.display = "flex";
-        } else {
-            outputSectionId.style.display = "none";
         }
     });
 }
